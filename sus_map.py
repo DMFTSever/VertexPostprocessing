@@ -51,11 +51,11 @@ c = args.complex
 if filename == 'AL':
     if Niwf is None:
         Niwf = 200
-    data = sus.al(U, beta, Niwf)
+    data = sus.AtomicLimit(U, beta, Niwf)
     print('AL for Atomic Limit is selected')
 else:
     try:
-        data = sus.get(filename,beta, U=U)
+        data = sus.ChiCollector(filename,beta, U=U)
         if Niwf is None or Niwf > data.Niwf:
             Niwf = data.Niwf
     except IOError:

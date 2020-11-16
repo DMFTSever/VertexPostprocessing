@@ -42,11 +42,11 @@ parser.add_argument("--complex",
 args = parser.parse_args()
 
 filename = args.file
-U = args.U
-beta = args.beta
-s = args.susceptibility
-Niwf =args.Niwf
-c = args.complex
+U        = args.U
+beta     = args.beta
+s        = args.susceptibility
+Niwf     = args.Niwf
+c        = args.complex
 
 if filename == 'AL':
     if Niwf is None:

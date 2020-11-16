@@ -71,13 +71,13 @@ class ChiCollector:
         returns self.nu
     """
     def __init__(self, infile, beta, U='nan'):
-        self.infile = infile
-        self.beta = float(beta)
-        self.U = float(U)
+        self.infile   = infile
+        self.beta     = float(beta)
+        self.U        = float(U)
         self.luu_real = []
-        self.luu_img = []
+        self.luu_img  = []
         self.lud_real = []
-        self.lud_img = []
+        self.lud_img  = []
         with open(infile)as f:
             for i, line in enumerate(f.readlines()):
                 data=line.split()
@@ -86,12 +86,16 @@ class ChiCollector:
                 self.lud_real.append(float(data[5]))
                 self.lud_img.append(float(data[6]))
         self.length = i + 1
-        self.Niwf = int(np.sqrt(float(self.length))/2) # even total Number of Mat-fg assumed
-        self.uu = np.reshape(np.array(self.luu_real) + 1j*np.array(self.luu_img), (2*self.Niwf,2*self.Niwf))
-        self.ud = np.reshape(np.array(self.lud_real) + 1j*np.array(self.lud_img), (2*self.Niwf,2*self.Niwf))
-        self.c = (self.uu + self.ud)
-        self.s = (self.uu - self.ud)
-        self.nu = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/self.beta,(2*(self.Niwf-1)+1)*np.pi/self.beta,num=2*self.Niwf)
+        self.Niwf   = int(np.sqrt(float(self.length))/2) # even total Number of Mat-fg
+                                                         # assumed
+        self.uu     = np.reshape(np.array(self.luu_real) + 1j*np.array(self.luu_img),\
+                                 (2*self.Niwf,2*self.Niwf))
+        self.ud     = np.reshape(np.array(self.lud_real) + 1j*np.array(self.lud_img),\
+                                 (2*self.Niwf,2*self.Niwf))
+        self.c      = (self.uu + self.ud)
+        self.s      = (self.uu - self.ud)
+        self.nu     = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/self.beta,\
+                                  (2*(self.Niwf-1)+1)*np.pi/self.beta,num=2*self.Niwf)
 
     def get_uu(self):
         """returns uu"""
@@ -172,16 +176,18 @@ class FCollector:
     """
     def __init__(self, infile, beta, U='nan'):
         self.infile = infile
-        self.beta = float(beta)
-        self.U = float(U)
-        F = np.genfromtxt(infile, comments='#', usecols=(3,4,5,6))
+        self.beta   = float(beta)
+        self.U      = float(U)
+        F           = np.genfromtxt(infile, comments='#', usecols=(3,4,5,6))
         self.length = F.shape[0]
-        self.Niwf = int(np.sqrt(float(self.length))/2.) # even total Number of Mat-fg assumed
-        self.c = np.reshape(F[:,0] + 1j*F[:,1], (2*self.Niwf,2*self.Niwf))
-        self.s = np.reshape(F[:,2] + 1j*F[:,3], (2*self.Niwf,2*self.Niwf))
-        self.uu = 0.5*(self.c + self.s)
-        self.ud = 0.5*(self.c - self.s)
-        self.nu = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/self.beta,(2*(self.Niwf-1)+1)*np.pi/self.beta,num=2*self.Niwf)
+        self.Niwf   = int(np.sqrt(float(self.length))/2.) # even total Number of Mat-fg
+                                                          # assumed
+        self.c      = np.reshape(F[:,0] + 1j*F[:,1], (2*self.Niwf,2*self.Niwf))
+        self.s      = np.reshape(F[:,2] + 1j*F[:,3], (2*self.Niwf,2*self.Niwf))
+        self.uu     = 0.5*(self.c + self.s)
+        self.ud     = 0.5*(self.c - self.s)
+        self.nu     = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/self.beta,\
+                                  (2*(self.Niwf-1)+1)*np.pi/self.beta,num=2*self.Niwf)
 
     def get_uu(self):
         """returns uu"""
@@ -209,16 +215,18 @@ class GammaCollector:
     """
     def __init__(self, infile, beta, U='nan'):
         self.infile = infile
-        self.beta = float(beta)
-        self.U = float(U)
-        G = np.genfromtxt(infile, comments='#', usecols=(3,4,5,6))
+        self.beta   = float(beta)
+        self.U      = float(U)
+        G           = np.genfromtxt(infile, comments='#', usecols=(3,4,5,6))
         self.length = G.shape[0]
-        self.Niwf = int(np.sqrt(float(self.length))/2.) # even total Number of Mat-fg assumed
-        self.c = np.reshape(G[:,0] + 1j*G[:,1], (2*self.Niwf,2*self.Niwf))
-        self.s = np.reshape(G[:,2] + 1j*G[:,3], (2*self.Niwf,2*self.Niwf))
-        self.uu = 0.5*(self.c + self.s)
-        self.ud = 0.5*(self.c - self.s)
-        self.nu = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/self.beta,(2*(self.Niwf-1)+1)*np.pi/self.beta,num=2*self.Niwf)
+        self.Niwf   = int(np.sqrt(float(self.length))/2.) # even total Number of Mat-fg
+                                                          # assumed
+        self.c      = np.reshape(G[:,0] + 1j*G[:,1], (2*self.Niwf,2*self.Niwf))
+        self.s      = np.reshape(G[:,2] + 1j*G[:,3], (2*self.Niwf,2*self.Niwf))
+        self.uu     = 0.5*(self.c + self.s)
+        self.ud     = 0.5*(self.c - self.s)
+        self.nu     = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/self.beta,\
+                                  (2*(self.Niwf-1)+1)*np.pi/self.beta,num=2*self.Niwf)
 
     def get_uu(self):
         """returns uu"""
@@ -323,90 +331,110 @@ class AtomicLimit:
         returns self.nu
     """
     def __init__(self, U, beta ,Niwf, mult=2.):
-        self.U = float(U)
+        self.U    = float(U)
         self.beta = float(beta)
         self.Niwf = int(Niwf)
-        self.nu = np.linspace(-(2*(float(Niwf)-1)+1)*np.pi/beta,(2*(float(Niwf)-1)+1)*np.pi/beta,num=float(mult)*float(Niwf))
+        self.nu   = np.linspace(-(2*(float(Niwf)-1)+1)*np.pi/beta,\
+                                (2*(float(Niwf)-1)+1)*np.pi/beta,\
+                                num=float(mult)*float(Niwf))
         # calculation ---------------------
-        U2_4 = (1/4. * self.U**2)
-        bU_2 = (self.beta * self.U/2.)
+        U2_4   = (1/4. * self.U**2)
+        bU_2   = (self.beta * self.U/2.)
         Embu_2 = np.exp(-bU_2)
-        Ad2 = 3 * U2_4
-        Am2 = (-U2_4)
-        Bd2 = U2_4 * (-Embu_2 + 3) / (1 + Embu_2)
-        Bm2 = U2_4 * (-1 + 3. * Embu_2) / (1 + Embu_2)
-        Cd = bU_2 * Embu_2/ (1 + Embu_2)
-        Cm = (-bU_2 * 1./ (1 + Embu_2))
-        nu2 = np.square(self.nu)
-        denom = (np.square(nu2)  +  2 * nu2 * U2_4  +  U2_4**2)
-        adnu = self.beta/2. * np.divide((nu2 - Ad2), denom)
-        amnu = self.beta/2. * np.divide((nu2 - Am2), denom)
-        b0dnu = self.beta/2. * np.divide((nu2 - Bd2), denom)
-        b0mnu = self.beta/2. * np.divide((nu2 - Bm2), denom)
-        b1dnu = np.divide((nu2 - U2_4 * (1+Cd)/(1-Cd)), denom)
-        b1mnu = np.divide((nu2 - U2_4 * (1+Cm)/(1-Cm)), denom)
-        b2nu = np.divide(1, denom)
-        # ------------------------X Calculation
-        self.Xc = (np.diag(adnu) -  np.diag(adnu)[:,::-1] + np.diag(b0dnu) +  np.diag(b0dnu)[:,::-1]
-                - self.U*(1-Cd) * np.tensordot(b1dnu, b1dnu, 0) + U2_4*self.U**3/(1-Cd) * np.tensordot(b2nu, b2nu, 0))
+        Ad2    = 3 * U2_4
+        Am2    = (-U2_4)
+        Bd2    = U2_4 * (-Embu_2 + 3) / (1 + Embu_2)
+        Bm2    = U2_4 * (-1 + 3. * Embu_2) / (1 + Embu_2)
+        Cd     = bU_2 * Embu_2/ (1 + Embu_2)
+        Cm     = (-bU_2 * 1./ (1 + Embu_2))
+        nu2    = np.square(self.nu)
+        denom  = (np.square(nu2)  +  2 * nu2 * U2_4  +  U2_4**2)
+        adnu   = self.beta/2. * np.divide((nu2 - Ad2), denom)
+        amnu   = self.beta/2. * np.divide((nu2 - Am2), denom)
+        b0dnu  = self.beta/2. * np.divide((nu2 - Bd2), denom)
+        b0mnu  = self.beta/2. * np.divide((nu2 - Bm2), denom)
+        b1dnu  = np.divide((nu2 - U2_4 * (1+Cd)/(1-Cd)), denom)
+        b1mnu  = np.divide((nu2 - U2_4 * (1+Cm)/(1-Cm)), denom)
+        b2nu   = np.divide(1, denom)
 
-        self.Xs = (np.diag(amnu) -  np.diag(amnu)[:,::-1] + np.diag(b0mnu) +  np.diag(b0mnu)[:,::-1]
-                + self.U*(1-Cm) * np.tensordot(b1mnu, b1mnu, 0) - U2_4*self.U**3/(1-Cm) * np.tensordot(b2nu, b2nu, 0))
+        # ------------------------X Calculation
+        self.Xc  = (  np.diag(adnu) -  np.diag(adnu)[:,::0]\
+                    + np.diag(b0dnu) +  np.diag(b0dnu)[:,::-1]\
+                    - self.U*(1-Cd) * np.tensordot(b1dnu, b1dnu, 0)\
+                    + U2_4*self.U**3/(1-Cd) * np.tensordot(b3nu, b2nu, 0) )
+
+        self.Xs  = (  np.diag(amnu) - np.diag(amnu)[:,::-1]\
+                    + np.diag(b0mnu) + np.diag(b0mnu)[:,::-1]
+                    + self.U*(1-Cm)*np.tensordot(b1mnu, b1mnu, 0)\
+                    - U2_4*self.U**3/(1-Cm)*np.tensordot(b2nu, b2nu, 0))
         self.Xuu = (self.Xc + self.Xs)/2.
         self.Xud = (self.Xc - self.Xs)/2.
 
-	#--------------------F Calculation - Taken from PRB 86, 2012 by Georg
-        F0 = np.divide((nu2 + U2_4),nu2)
-        F1a = np.exp(-bU_2)/(1.+np.exp(-bU_2))
-        F1b = 1./(1.+np.exp(-bU_2))
-        F1c = (1.-np.exp(-bU_2))/(1.+np.exp(-bU_2))
+	    #--------------------F Calculation - Taken from PRB 86, 2012 by Georg
+        F0       = np.divide((nu2 + U2_4),nu2)
+        F1a      = np.exp(-bU_2)/(1.+np.exp(-bU_2))
+        F1b      = 1./(1.+np.exp(-bU_2))
+        F1c      = (1.-np.exp(-bU_2))/(1.+np.exp(-bU_2))
 
         self.Fuu = self.beta*U2_4*np.tensordot(F0,F0,0)
         np.fill_diagonal(self.Fuu,0.0)
 
-        ones = np.ones(2*self.Niwf)
+        ones     = np.ones(2*self.Niwf)
 
-        self.Fud = (-self.U*np.ones((2*self.Niwf,2*self.Niwf)) + self.U*U2_4*(np.tensordot(ones,1.0/nu2,0)+np.tensordot(1.0/nu2,ones,0))
-                 +3.0*self.U*((U2_4)**2)*np.tensordot(1.0/nu2,1.0/nu2,0) - self.beta*U2_4*F1c*np.tensordot(F0,F0,0)
-                 +2.0*self.beta*U2_4*F1a*np.diag(F0**2)[:,::-1] - 2.0*self.beta*U2_4*F1b*np.diag(F0**2))
+        self.Fud = (- self.U*np.ones((2*self.Niwf,2*self.Niwf)) \
+                    + self.U*U2_4*(np.tensordot(ones,1.0/nu2,0)\
+                    + np.tensordot(1.0/nu2,ones,0))\
+                    + 3.0*self.U*((U2_4)**2)*np.tensordot(1.0/nu2,1.0/nu2,0)\
+                    - self.beta*U2_4*F1c*np.tensordot(F0,F0,0)\
+                    + 2.0*self.beta*U2_4*F1a*np.diag(F0**2)[:,::-1]\
+                    - 2.0*self.beta*U2_4*F1b*np.diag(F0**2) )
 
-        self.Fc = self.Fuu + self.Fud
-        self.Fs = self.Fuu - self.Fud
+        self.Fc  = self.Fuu + self.Fud
+        self.Fs  = self.Fuu - self.Fud
 
-        GAL = -self.nu/(nu2+U2_4)	#imaginary part of GF of AL
+        GAL      = -self.nu/(nu2+U2_4)	#imaginary part of GF of AL
 
-        X0 = np.diag(self.beta*GAL*GAL)		#considering i from ImagGF and \Omega=0
+        X0       = np.diag(self.beta*GAL*GAL)		#considering i from ImagGF and \Omega=0
 
-        #------------------------Gamma Calculation - Fingers crossed I didn't screw it up... Taken from PRB 98 (2018) by Georg
-	#-----check for imaginary parts:
+        #------------------------Gamma Calculation
+        # Fingers crossed I didn't screw it up... Taken from PRB 98 (2018) by Georg
+	    #-----check for imaginary parts:
         if (-1.0+3.0*Embu_2)<=0.0:
                 IMAG = True
         else:
                 IMAG = False
 
 
-        G0d = self.beta/2. * Ad2 *np.divide(denom,(nu2-Ad2)*nu2)	#first term
-        G1d = self.beta/2. * Bd2 *np.divide(denom,(nu2-Bd2)*nu2)	#second
-        G0m = self.beta/2. * Am2 *np.divide(denom,(nu2-Am2)*nu2)	#first term
-        G1m = self.beta/2. * Bm2 *np.divide(denom,(nu2-Bm2)*nu2)	#second
+        G0d   = self.beta/2. * Ad2 *np.divide(denom,(nu2-Ad2)*nu2)	#first term
+        G1d   = self.beta/2. * Bd2 *np.divide(denom,(nu2-Bd2)*nu2)	#second
+        G0m   = self.beta/2. * Am2 *np.divide(denom,(nu2-Am2)*nu2)	#first term
+        G1m   = self.beta/2. * Bm2 *np.divide(denom,(nu2-Bm2)*nu2)	#second
 
-        Gnomd = self.U*np.tan(self.beta/2.*np.sqrt(Bd2))/(2.*np.sqrt(Bd2)) + 1.	 		#ATTENTION - attracive case is not taken into account
+        #ATTENTION - attracive case is not taken into account
+        Gnomd = self.U*np.tan(self.beta/2.*np.sqrt(Bd2))/(2.*np.sqrt(Bd2)) + 1.
 
-        if IMAG:									#if imaginary tan has to be reformulated in tanh(x) = -i*tan(ix)
-                Gnomm = self.U*np.tanh(self.beta/2.*np.sqrt(-Bm2))/(2.*np.sqrt(-Bm2)) - 1.
+        #if imaginary tan has to be reformulated in tanh(x) = -i*tan(ix)
+        if IMAG:
+            Gnomm = self.U*np.tanh(self.beta/2.*np.sqrt(-Bm2))/(2.*np.sqrt(-Bm2)) - 1.
         else:
-                Gnomm = self.U*np.tan(self.beta/2.*np.sqrt(Bm2))/(2.*np.sqrt(Bm2)) - 1.
+            Gnomm = self.U*np.tan(self.beta/2.*np.sqrt(Bm2))/(2.*np.sqrt(Bm2)) - 1.
 
-        self.Gc = (np.diag(G0d) - np.diag(G0d)[:,::-1] + np.diag(G1d) + np.diag(G1d)[:,::-1]
-                -np.divide((self.U*(Bd2+U2_4)**2),Gnomd)*np.tensordot(1./(nu2-Bd2),1./(nu2-Bd2),0) + self.U*np.ones((2*self.Niwf,2*self.Niwf)))
+        self.Gc = ( np.diag(G0d) - np.diag(G0d)[:,::-1]\
+                   + np.diag(G1d) + np.diag(G1d)[:,::-1]\
+                   - np.divide((self.U*(Bd2+U2_4)**2),Gnomd)\
+                     *np.tensordot(1./(nu2-Bd2),1./(nu2-Bd2),0)\
+                   + self.U*np.ones((2*self.Niwf,2*self.Niwf)) )
 
         if Gnomm == 0.0:
-                self.Gs = np.zeros((2*self.Niwf,2*self.Niwf))
+                self.Gs  = np.zeros((2*self.Niwf,2*self.Niwf))
                 self.Guu = np.zeros((2*self.Niwf,2*self.Niwf))
                 self.Gud = np.zeros((2*self.Niwf,2*self.Niwf))
         else:
-                self.Gs = (np.diag(G0m) - np.diag(G0m)[:,::-1] + np.diag(G1m) + np.diag(G1m)[:,::-1]
-                	-np.divide((self.U*(Bm2+U2_4)**2),Gnomm)*np.tensordot(1./(nu2-Bm2),1./(nu2-Bm2),0) - self.U*np.ones((2*self.Niwf,2*self.Niwf)))
+                self.Gs  = ( np.diag(G0m) - np.diag(G0m)[:,::-1]\
+                           + np.diag(G1m) + np.diag(G1m)[:,::-1]\
+                  	       - np.divide((self.U*(Bm2+U2_4)**2),Gnomm)\
+                             *np.tensordot(1./(nu2-Bm2),1./(nu2-Bm2),0)\
+                           - self.U*np.ones((2*self.Niwf,2*self.Niwf)))
                 self.Guu = (self.Gc + self.Gs)/2.
                 self.Gud = (self.Gc - self.Gs)/2.
 
@@ -492,7 +520,8 @@ def sub_matrix(matrix,N):
                 if N%2 != 0 or N<2:
                     print('even input matrix')
                     print('input N =', N, 'is set to', n)
-                return matrix[(int(mid)-int((n+1)/2)):(int(mid)+int(n/2)),(int(mid)-int((n+1)/2)):(int(mid)+int(n/2))]
+                return matrix[ (int(mid)-int((n+1)/2)):(int(mid)+int(n/2)),\
+                               (int(mid)-int((n+1)/2)):(int(mid)+int(n/2)) ]
             else:
                 n = (int(N)/2)*2+1
                 if n <1:
@@ -500,7 +529,8 @@ def sub_matrix(matrix,N):
                 if N%2 == 0 or N<1:
                     print('uneven input matrix')
                     print('input N =', N, 'is set to', n)
-                return matrix[(int(mid)-int((n)/2)):(int(mid)+int((n+1)/2)),(int(mid)-int((n)/2)):(int(mid)+int((n+1)/2))]
+                return matrix[ (int(mid)-int((n)/2)):(int(mid)+int((n+1)/2)),\
+                               (int(mid)-int((n)/2)):(int(mid)+int((n+1)/2)) ]
         else:
             print('Error: sub_matrix() expecting quadratic two-dimensional matrix')
     else:
@@ -523,10 +553,11 @@ def off_diag(matrix):
                     [ 0, 0,15, 0]]
     """
     if type(matrix) is np.ndarray:
-        if matrix.ndim == 2 and matrix.shape[0] == matrix.shape[1] and matrix.shape[0]%2 == 0:
-            end = matrix.shape[0]
-            half = end/2
-            new = np.copy(matrix)
+        if matrix.ndim == 2 and matrix.shape[0] == matrix.shape[1]\
+                            and matrix.shape[0]%2 == 0:
+            end                 = matrix.shape[0]
+            half                = end/2
+            new                 = np.copy(matrix)
             new[:half,half:end] = 0
             new[half:end,:half] = 0
             np.fill_diagonal(new,0)
@@ -556,10 +587,10 @@ def off_counter(matrix):
     """
     if type(matrix) is np.ndarray:
         if matrix.ndim == 2 and matrix.shape[0] == matrix.shape[1] and matrix.shape[0]%2 == 0:
-            end = matrix.shape[0]
-            half = end/2
-            new = np.copy(matrix)
-            new[:half,:half] = 0
+            end                    = matrix.shape[0]
+            half                   = end/2
+            new                    = np.copy(matrix)
+            new[:half,:half]       = 0
             new[half:end,half:end] = 0
             return new
         else:
@@ -570,60 +601,60 @@ def off_counter(matrix):
 # -------------------------------------
 # colormap inspired by Patrick Chalupa
 # -------------------------------------
-cdict = {'blue':[[0.0, 0.6, 0.6],
-                [0.499, 1.0, 1.0],
-                [0.5, 0.0, 0.0],
-                #[0.5, 1.0, 1.0],
-                #[0.501, 0.0, 0.0],
-                [1.0, 0., 0.]],
-        'green':[[0.0, 0.0, 0.0],
-                [0.02631578947368421, 7.673360394717657e-06, 7.673360394717657e-06],
-                [0.05263157894736842, 0.00012277376631548252, 0.00012277376631548252],
-                [0.07894736842105263, 0.0006215421919721302, 0.0006215421919721302],
-                [0.10526315789473684, 0.0019643802610477203, 0.0019643802610477203],
-                [0.13157894736842105, 0.004795850246698536, 0.004795850246698536],
-                [0.15789473684210525, 0.009944675071554084, 0.009944675071554084],
-                [0.18421052631578946, 0.018423738307717093, 0.018423738307717093],
-                [0.21052631578947367, 0.031430084176763524, 0.031430084176763524],
-                [0.23684210526315788, 0.050344917549742546, 0.050344917549742546],
-                [0.2631578947368421, 0.07673360394717657, 0.07673360394717657],
-                [0.2894736842105263, 0.11234566953906126, 0.11234566953906126],
-                [0.3157894736842105, 0.15911480114486534, 0.15911480114486534],
-                [0.3421052631578947, 0.21915884623353094, 0.21915884623353094],
-                [0.3684210526315789, 0.2947798129234735, 0.2947798129234735],
-                [0.39473684210526316, 0.3884638699825815, 0.3884638699825815],
-                [0.42105263157894735, 0.5028813468282164, 0.5028813468282164],
-                [0.4473684210526315, 0.6408867335272133, 0.6408867335272133],
-                [0.47368421052631576, 0.8055186807958807, 0.8055186807958807],
-                [0.499, 1.0, 1.0],
-                [0.5, 0.0, 0.0],
-                #[0.5, 1.0, 1.0],
-                [0.501, 1.0, 1.0],
-                [0.5263157894736843, 0.8055186807958807, 0.8055186807958807],
-                [0.5526315789473685, 0.6408867335272133, 0.6408867335272133],
-                [0.5789473684210527, 0.5028813468282164, 0.5028813468282164],
-                [0.6052631578947368, 0.3884638699825815, 0.3884638699825815],
-                [0.631578947368421, 0.2947798129234735, 0.2947798129234735],
-                [0.6578947368421053, 0.21915884623353094, 0.21915884623353094],
-                [0.6842105263157895, 0.15911480114486534, 0.15911480114486534],
-                [0.7105263157894737, 0.11234566953906126, 0.11234566953906126],
-                [0.736842105263158, 0.07673360394717657, 0.07673360394717657],
-                [0.7631578947368421, 0.050344917549742546, 0.050344917549742546],
-                [0.7894736842105263, 0.031430084176763524, 0.031430084176763524],
-                [0.8157894736842105, 0.018423738307717093, 0.018423738307717093],
-                [0.8421052631578947, 0.009944675071554084, 0.009944675071554084],
-                [0.868421052631579, 0.004795850246698536, 0.004795850246698536],
-                [0.8947368421052632, 0.0019643802610477203, 0.0019643802610477203],
-                [0.9210526315789473, 0.0006215421919721302, 0.0006215421919721302],
-                [0.9473684210526316, 0.00012277376631548252, 0.00012277376631548252],
-                [0.9736842105263158, 7.673360394717657e-06, 7.673360394717657e-06],
-                [1.0, 0.0, 0.0]],
-        'red': [[0.0, 0., 0.],
-                #[0.499, 0.0, 0.0],
-                #[0.5, 1.0, 1.0],
-                [0.5, 0.0, 0.0],
-                [0.501, 1.0, 1.0],
-                [1.0, 0.6, 0.6]]}
+cdict = {'blue':  [[0.0, 0.6, 0.6],
+                   [0.499, 1.0, 1.0],
+                   [0.5, 0.0, 0.0],
+                   #[0.5, 1.0, 1.0],
+                   #[0.501, 0.0, 0.0],
+                   [1.0, 0., 0.]],
+         'green': [[0.0, 0.0, 0.0],
+                   [0.02631578947368421, 7.673360394717657e-06, 7.673360394717657e-06],
+                   [0.05263157894736842, 0.00012277376631548252, 0.00012277376631548252],
+                   [0.07894736842105263, 0.0006215421919721302, 0.0006215421919721302],
+                   [0.10526315789473684, 0.0019643802610477203, 0.0019643802610477203],
+                   [0.13157894736842105, 0.004795850246698536, 0.004795850246698536],
+                   [0.15789473684210525, 0.009944675071554084, 0.009944675071554084],
+                   [0.18421052631578946, 0.018423738307717093, 0.018423738307717093],
+                   [0.21052631578947367, 0.031430084176763524, 0.031430084176763524],
+                   [0.23684210526315788, 0.050344917549742546, 0.050344917549742546],
+                   [0.2631578947368421, 0.07673360394717657, 0.07673360394717657],
+                   [0.2894736842105263, 0.11234566953906126, 0.11234566953906126],
+                   [0.3157894736842105, 0.15911480114486534, 0.15911480114486534],
+                   [0.3421052631578947, 0.21915884623353094, 0.21915884623353094],
+                   [0.3684210526315789, 0.2947798129234735, 0.2947798129234735],
+                   [0.39473684210526316, 0.3884638699825815, 0.3884638699825815],
+                   [0.42105263157894735, 0.5028813468282164, 0.5028813468282164],
+                   [0.4473684210526315, 0.6408867335272133, 0.6408867335272133],
+                   [0.47368421052631576, 0.8055186807958807, 0.8055186807958807],
+                   [0.499, 1.0, 1.0],
+                   [0.5, 0.0, 0.0],
+                   #[0.5, 1.0, 1.0],
+                   [0.501, 1.0, 1.0],
+                   [0.5263157894736843, 0.8055186807958807, 0.8055186807958807],
+                   [0.5526315789473685, 0.6408867335272133, 0.6408867335272133],
+                   [0.5789473684210527, 0.5028813468282164, 0.5028813468282164],
+                   [0.6052631578947368, 0.3884638699825815, 0.3884638699825815],
+                   [0.631578947368421, 0.2947798129234735, 0.2947798129234735],
+                   [0.6578947368421053, 0.21915884623353094, 0.21915884623353094],
+                   [0.6842105263157895, 0.15911480114486534, 0.15911480114486534],
+                   [0.7105263157894737, 0.11234566953906126, 0.11234566953906126],
+                   [0.736842105263158, 0.07673360394717657, 0.07673360394717657],
+                   [0.7631578947368421, 0.050344917549742546, 0.050344917549742546],
+                   [0.7894736842105263, 0.031430084176763524, 0.031430084176763524],
+                   [0.8157894736842105, 0.018423738307717093, 0.018423738307717093],
+                   [0.8421052631578947, 0.009944675071554084, 0.009944675071554084],
+                   [0.868421052631579, 0.004795850246698536, 0.004795850246698536],
+                   [0.8947368421052632, 0.0019643802610477203, 0.0019643802610477203],
+                   [0.9210526315789473, 0.0006215421919721302, 0.0006215421919721302],
+                   [0.9473684210526316, 0.00012277376631548252, 0.00012277376631548252],
+                   [0.9736842105263158, 7.673360394717657e-06, 7.673360394717657e-06],
+                   [1.0, 0.0, 0.0]],
+         'red':   [[0.0, 0., 0.],
+                   #[0.499, 0.0, 0.0],
+                   #[0.5, 1.0, 1.0],
+                   [0.5, 0.0, 0.0],
+                   [0.501, 1.0, 1.0],
+                   [1.0, 0.6, 0.6]]}
 
 if __name__ == "__main__":
     exit()

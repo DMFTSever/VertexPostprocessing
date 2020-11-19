@@ -1,0 +1,5 @@
+#files ignored by git
+
+#python complied files
+*.pyc
+/__pychache__

@@ -99,23 +99,23 @@ class ChiCollector:
 
     def get_uu(self):
         """returns uu"""
-        return self.uu
+        return self.uu.copy()
 
     def get_ud(self):
         """returns ud"""
-        return self.ud
+        return self.ud.copy()
 
     def get_c(self):
         """returns c"""
-        return self.c
+        return self.c.copy()
 
     def get_s(self):
         """returns s"""
-        return self.s
+        return self.s.copy()
 
     def get_nu(self):
         """returns nu"""
-        return self.nu
+        return self.nu.copy()
 
 class FCollector:
     """
@@ -191,23 +191,23 @@ class FCollector:
 
     def get_uu(self):
         """returns uu"""
-        return self.uu
+        return self.uu.copy()
 
     def get_ud(self):
         """returns ud"""
-        return self.ud
+        return self.ud.copy()
 
     def get_c(self):
         """returns c"""
-        return self.c
+        return self.c.copy()
 
     def get_s(self):
         """returns s"""
-        return self.s
+        return self.s.copy()
 
     def get_nu(self):
         """returns nu"""
-        return self.nu
+        return self.nu.copy()
 
 class GammaCollector:
     """
@@ -230,23 +230,23 @@ class GammaCollector:
 
     def get_uu(self):
         """returns uu"""
-        return self.uu
+        return self.uu.copy()
 
     def get_ud(self):
         """returns ud"""
-        return self.ud
+        return self.ud.copy()
 
     def get_c(self):
         """returns c"""
-        return self.c
+        return self.c.copy()
 
     def get_s(self):
         """returns s"""
-        return self.s
+        return self.s.copy()
 
     def get_nu(self):
         """returns nu"""
-        return self.nu
+        return self.nu.copy()
 
 class AtomicLimit:
     """
@@ -441,55 +441,55 @@ class AtomicLimit:
 
     def get_Xuu(self):
         """returns uu"""
-        return self.Xuu
+        return self.Xuu.copy()
 
     def get_Xud(self):
         """returns ud"""
-        return self.Xud
+        return self.Xud.copy()
 
     def get_Xc(self):
         """returns c"""
-        return self.Xc
+        return self.Xc.copy()
 
     def get_Xs(self):
         """returns s"""
-        return self.Xs
+        return self.Xs.copy()
 
     def get_Fuu(self):
         """returns uu"""
-        return self.Fuu
+        return self.Fuu.copy()
 
     def get_Fud(self):
         """returns ud"""
-        return self.Fud
+        return self.Fud.copy()
 
     def get_Fc(self):
         """returns c"""
-        return self.Fc
+        return self.Fc.copy()
 
     def get_Fs(self):
         """returns s"""
-        return self.Fs
+        return self.Fs.copy()
 
     def get_Guu(self):
         """returns uu"""
-        return self.Guu
+        return self.Guu.copy()
 
     def get_Gud(self):
         """returns ud"""
-        return self.Gud
+        return self.Gud.copy()
 
     def get_Gc(self):
         """returns c"""
-        return self.Gc
+        return self.Gc.copy()
 
     def get_Gs(self):
         """returns s"""
-        return self.Gs
+        return self.Gs.copy()
 
     def get_nu(self):
         """returns nu"""
-        return self.nu
+        return self.nu.copy()
 
 #functions
 def sub_matrix(matrix,N):

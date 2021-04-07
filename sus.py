@@ -261,8 +261,6 @@ class AtomicLimit:
         beta of the AL
     Niwf : int
         number of positiv Mat-fq
-    mult : float
-        default = 2.; to get finer or broughter fq-grid then the Mat-fq grid chance mult acordingly
     Attributes
     ----------
     U : float
@@ -271,9 +269,6 @@ class AtomicLimit:
         beta of the AL
     Niwf : int
         number of positiv Mat-fq
-    mult : float
-        multiplicator of frequency grid resolution
-        default = 2.; to get finer or broughter Mat-fq grid chance mult acordingly
     Xc : np.array( , )
         matrix of Re(Chi_uu)+Re(Chi_ud) values
     Xs : np.array( , )
@@ -330,13 +325,13 @@ class AtomicLimit:
     get_nu() :
         returns self.nu
     """
-    def __init__(self, U, beta ,Niwf, mult=2.):
+    def __init__(self, U, beta ,Niwf):
         self.U    = float(U)
         self.beta = float(beta)
         self.Niwf = int(Niwf)
-        self.nu   = np.linspace(-(2*(float(Niwf)-1)+1)*np.pi/beta,\
-                                (2*(float(Niwf)-1)+1)*np.pi/beta,\
-                                num=float(mult)*float(Niwf))
+        self.nu   = np.linspace(-(2*(self.Niwf-1)+1)*np.pi/beta,\
+                                 (2*(self.Niwf-1)+1)*np.pi/beta,\
+                                 num=2*self.Niwf)
         # calculation ---------------------
         U2_4   = (1/4. * self.U**2)
         bU_2   = (self.beta * self.U/2.)
@@ -358,10 +353,10 @@ class AtomicLimit:
         b2nu   = np.divide(1, denom)
 
         # ------------------------X Calculation
-        self.Xc  = (  np.diag(adnu) -  np.diag(adnu)[:,::0]\
+        self.Xc  = (  np.diag(adnu) -  np.diag(adnu)[:,::-1]\
                     + np.diag(b0dnu) +  np.diag(b0dnu)[:,::-1]\
                     - self.U*(1-Cd) * np.tensordot(b1dnu, b1dnu, 0)\
-                    + U2_4*self.U**3/(1-Cd) * np.tensordot(b3nu, b2nu, 0) )
+                    + U2_4*self.U**3/(1-Cd) * np.tensordot(b2nu, b2nu, 0) )
 
         self.Xs  = (  np.diag(amnu) - np.diag(amnu)[:,::-1]\
                     + np.diag(b0mnu) + np.diag(b0mnu)[:,::-1]
